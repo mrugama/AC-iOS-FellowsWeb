@@ -1,3 +1,6 @@
-## AC-iOS-Fellows
+## AC-iOS-FellowsWeb
 
-Fellows app is laid out entirely in code using auto layout via LayoutAnchors.
+This updated version of the Fellows app presents Web Content in the following ways: 
+* Safari
+* WKWebView
+* SFSafariViewController
