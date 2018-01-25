@@ -7,8 +7,31 @@
 //
 
 import UIKit
+import SnapKit
 
 class DetailView: UIView {
+    
+    lazy var safariLinkButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage.init(named: "apple-logo-rainbow"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFill
+        return button
+    }()
+    
+    lazy var webViewLinkButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage.init(named: "c4q-logo"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFill
+        return button
+    }()
+    
+    lazy var githubLinkButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Github - come see my work", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFill
+        return button
+    }()
     
     lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -58,17 +81,58 @@ extension DetailView {
     private func setupViews() {
         backgroundColor = .white
         setupProfileImage()
+        setupGithubLinkButton()
+        setupSafariLinkButton()
+        setupWebViewLinkButton()
         setupBioTextView()
+    }
+    
+    private func setupSafariLinkButton() {
+        addSubview(safariLinkButton)
+        safariLinkButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(profileImage.snp.centerY)
+            make.trailing.equalTo(profileImage.snp.leading).offset(-20)
+            make.width.height.equalTo(60)
+        }
+    }
+    
+    private func setupWebViewLinkButton() {
+        addSubview(webViewLinkButton)
+        webViewLinkButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(profileImage.snp.centerY)
+            make.leading.equalTo(profileImage.snp.trailing).offset(20)
+            make.width.height.equalTo(60)
+        }
     }
     
     private func setupProfileImage() {
         addSubview(profileImage)
-        // TODO: layout using SnapKit
+        profileImage.snp.makeConstraints { (make) in
+            make.centerX.equalTo(snp.centerX)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(40)
+            make.width.equalTo(snp.width).multipliedBy(0.30)
+            make.height.equalTo(profileImage.snp.width)
+        }
+    }
+    
+    private func setupGithubLinkButton() {
+        addSubview(githubLinkButton)
+        githubLinkButton.snp.makeConstraints { (make) in
+            make.top.equalTo(profileImage.snp.bottom).offset(16)
+            make.leading.trailing.equalTo(self)
+            make.height.equalTo(40)
+        }
     }
     
     private func setupBioTextView() {
+        let padding: CGFloat = 16
         addSubview(bioTextView)
-        // TODO: layout using SnapKit
+        bioTextView.snp.makeConstraints { (make) in
+            make.top.equalTo(githubLinkButton.snp.bottom).offset(padding)
+            make.leading.equalTo(snp.leading).offset(padding)
+            make.trailing.equalTo(snp.trailing).offset(-padding)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-padding)
+        }
     }
     
     // TODO: add a Github link which segues to a WebView

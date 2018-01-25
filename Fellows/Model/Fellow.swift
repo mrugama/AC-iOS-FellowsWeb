@@ -12,5 +12,5 @@ struct Fellow: Codable {
     let name: String
     let imageURL: URL?
     let bio: String
-    let githubURL: String
+    let githubURL: URL
 }
